@@ -1,0 +1,42 @@
+{
+  "lgb_best_trial": {
+    "learning_rate": 0.01,
+    "num_leaves": 225,
+    "max_depth": 7,
+    "min_data_in_leaf": 122,
+    "feature_fraction": 0.653141455326882,
+    "bagging_fraction": 0.7398415701223111,
+    "bagging_freq": 1,
+    "lambda_l1": 0.02066212423744578,
+    "lambda_l2": 18.582405283709182
+  },
+  "xgb": {
+    "n_estimators": 10000,
+    "learning_rate": 0.01,
+    "max_depth": 7,
+    "min_child_weight": 150,
+    "subsample": 0.7624522098040069,
+    "colsample_bytree": 0.6468143488146513,
+    "reg_alpha": 0.12301229850546286,
+    "reg_lambda": 0.40087886867019834,
+    "tree_method": "hist",
+    "eval_metric": "rmse",
+    "early_stopping_rounds": 200,
+    "n_jobs": 16,
+    "random_state": 2019,
+    "verbosity": 0
+  },
+  "cat": {
+    "iterations": 12000,
+    "learning_rate": 0.02,
+    "depth": 8,
+    "l2_leaf_reg": 6.966741489356912,
+    "bootstrap_type": "Bernoulli",
+    "subsample": 0.8772830279262221,
+    "loss_function": "RMSE",
+    "random_seed": 2019,
+    "thread_count": 16,
+    "allow_writing_files": false,
+    "verbose": 0
+  }
+}

@@ -1,0 +1,27 @@
+# 原始数据与特征缓存(约 3.6G;Kaggle 官方数据请自行下载到 data/raw/)
+data/
+
+# 大体积产物:提交文件、OOF 预测、基模型 npz、图
+outputs/*.csv
+outputs/*.npz
+outputs/base/
+outputs/base_ext/
+outputs/seed*/
+outputs/*.png
+outputs/logs/
+!outputs/feature_importance.csv
+!outputs/feature_importance_ext.csv
+
+# 第三方开源方案参考(他人代码,不纳入本仓库)
+refs/
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+
+# 本地工具配置(含 API 密钥,严禁入库)
+.claude/settings*.json
+.claude/skills/**/agents/*.yaml
+.agents/
