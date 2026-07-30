@@ -4,8 +4,7 @@ data/
 # 大体积产物:提交文件、OOF 预测、基模型 npz、图
 outputs/*.csv
 outputs/*.npz
-outputs/base/
-outputs/base_ext/
+outputs/base*/
 outputs/seed*/
 outputs/*.png
 outputs/logs/
