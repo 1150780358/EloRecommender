@@ -24,3 +24,4 @@ __pycache__/
 .claude/settings*.json
 .claude/skills/**/agents/*.yaml
 .agents/
+outputs/*.parquet

@@ -1,1 +1,1 @@
-v5 fusion [F16 跨特征集 bayes] bayes+x, OOF 3.63455
+v5 fusion [F23 全池TD bayes] bayes@td+, OOF 3.62711

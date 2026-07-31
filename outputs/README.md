@@ -10,8 +10,10 @@
 |---|---|---|---|
 | `base/{name}.npz` | `v5_base.py` | `v5_fusion.py` / `v6_te.py` | 统一基模型产物协议:每个 npz 含 `oof` + `test` 两数组;name ∈ lgb/xgb/cat/hub/clean/clf/mlp/mlp2/et/clf_* |
 | `base_ext/*.npz` | `v5_train_ext.py` | `v5_fusion.py`(前缀 `x_`) | v5 增量特征集(149 列被拒画像+近窗)基模型 |
-| `base_te/*.npz` | `v6_te.py` | `v5_fusion.py`(前缀 `t_`) | **v6 折内 target encoding 特征集基模型,当前实验正在写入** |
-| `te_features.npz` | `v6_te.py` | `v6_te.py` | v6 TE 特征缓存(47MB) |
+| `base_te/*.npz` | `v6_te.py` | `v5_fusion.py`(前缀 `t_`) | **v6 TE-v1 特征集基模型(线上验证 Private 3.60635,已冻结)**;泄漏版 v2/v2_tm/v3 产物已于 2026-07-31 清除 |
+| `base_te_v4/*.npz` | `v6_te.py` | 待验证 | TE-v4(v1+众数键)基模型,OOF 改善幅度正常,验证中 |
+| `base_mte/` + `merchant_te.npz` | `v6_merchant_te.py` | — | 商户侧 TE,已证伪(OOF 不动),收官归档时可删 |
+| `te_features.npz` / `te_features_v4.npz` | `v6_te.py` | `v6_te.py` | TE-v1 / v4 特征缓存;v2/v2_tm/v3 缓存已随泄漏清理删除 |
 
 ## 提交文件(每轮全量复跑会覆盖)
 
@@ -21,7 +23,7 @@
 | `submission_clean_pp.csv` | `exp1_clean_postprocess.py` | clean 模型 + outlier 概率软融合 |
 | `submission_seedavg_{clean_pp,stack}.csv` | `avg_seeds.py` | v4 3-seed 平均(clean_pp 版 Private 3.60759) |
 | `submission_v5_fusion.csv` | `v5_fusion.py` | 二层融合终选(F10 版 Private 3.60753,当前最优;v6 复跑会覆盖) |
-| `submission_v6_te.csv` | `v6_te.py` | v6 TE 方向产出(实验进行中) |
+| `submission_v6_te.csv` | `v6_te.py` | v6 TE-v1 F20 提交存档(Private 3.60635,当前最优) |
 
 ## 训练与实验报告(小文件,git 跟踪)
 
