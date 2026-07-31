@@ -1,1 +1,1 @@
-v5 fusion [F23 全池TD bayes] bayes@td+, OOF 3.62711
+v5 fusion [F23 全池TD bayes] bayes@td+, OOF 3.62454

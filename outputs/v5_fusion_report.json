@@ -4,156 +4,156 @@
       "plan": "F0 v4-stack(基线)",
       "n_meta": 5,
       "model": "ridge",
-      "oof": 3.6395618813129595
+      "oof": 3.639651694329672
     },
     {
       "plan": "F1 +clean",
       "n_meta": 6,
       "model": "ridge",
-      "oof": 3.6394116297099615
+      "oof": 3.639508197619189
     },
     {
       "plan": "F2 +clean+p_cal",
       "n_meta": 7,
       "model": "ridge",
-      "oof": 3.637451632390903
+      "oof": 3.639061176354857
     },
     {
       "plan": "F3 +ev(期望值解析)",
       "n_meta": 8,
       "model": "ridge",
-      "oof": 3.637560644846202
+      "oof": 3.639293444406392
     },
     {
       "plan": "F4 F3+交互项",
       "n_meta": 9,
       "model": "ridge",
-      "oof": 3.637798889772287
+      "oof": 3.6393827024904577
     },
     {
       "plan": "F5 F4 ridge10",
       "n_meta": 9,
       "model": "ridge10",
-      "oof": 3.637775354454747
+      "oof": 3.6393714767583254
     },
     {
       "plan": "F6 F4 bayes",
       "n_meta": 9,
       "model": "bayes",
-      "oof": 3.637624563902116
+      "oof": 3.639281771819681
     },
     {
       "plan": "F7 F4 浅LGB",
       "n_meta": 9,
       "model": "lgb",
-      "oof": 3.641769153022562
+      "oof": 3.6418310447256013
     },
     {
       "plan": "F8 ev+clean nnls",
       "n_meta": 6,
       "model": "nnls",
-      "oof": 3.638313876807674
+      "oof": 3.639693033936101
     },
     {
       "plan": "F9 F4+异构['mlp', 'mlp2', 'et']",
       "n_meta": 12,
       "model": "ridge",
-      "oof": 3.6335357855846793
+      "oof": 3.634735935746924
     },
     {
       "plan": "F10 F9 bayes",
       "n_meta": 12,
       "model": "bayes",
-      "oof": 3.633343421983351
+      "oof": 3.634626515477505
     },
     {
       "plan": "F13 全量+clf_ens概率",
       "n_meta": 12,
       "model": "ridge@ens",
-      "oof": 3.6348729419264134
+      "oof": 3.634923541230906
     },
     {
       "plan": "F14 全量+clf_ens bayes",
       "n_meta": 12,
       "model": "bayes@ens",
-      "oof": 3.634644182148774
+      "oof": 3.6348036935439576
     },
     {
       "plan": "F17 纯TE版",
       "n_meta": 9,
       "model": "ridge@te",
-      "oof": 3.636305223584738
+      "oof": 3.6365773782069017
     },
     {
       "plan": "F18 纯TE版 bayes",
       "n_meta": 9,
       "model": "bayes@te",
-      "oof": 3.636137152095355
+      "oof": 3.636467172744407
     },
     {
       "plan": "F19 全池(TE+原版+异构)",
       "n_meta": 16,
       "model": "ridge@all",
-      "oof": 3.6316848625149825
+      "oof": 3.632093598300674
     },
     {
       "plan": "F20 全池 bayes",
       "n_meta": 16,
       "model": "bayes@all",
-      "oof": 3.631445257322798
+      "oof": 3.631919781957394
     },
     {
       "plan": "F21 纯TD版 bayes",
       "n_meta": 9,
       "model": "bayes@td",
-      "oof": 3.631198076550159
+      "oof": 3.6289724809726653
     },
     {
       "plan": "F22 全池(TD+TE+原版)",
       "n_meta": 22,
       "model": "ridge@td+",
-      "oof": 3.6274411139435667
+      "oof": 3.624680490394901
     },
     {
       "plan": "F23 全池TD bayes",
       "n_meta": 22,
       "model": "bayes@td+",
-      "oof": 3.6271122586713695
+      "oof": 3.6245377654645776
     },
     {
       "plan": "F15 跨特征集(2个x_)",
       "n_meta": 14,
       "model": "ridge+x",
-      "oof": 3.6333858826501917
+      "oof": 3.634684095721087
     },
     {
       "plan": "F16 跨特征集 bayes",
       "n_meta": 14,
       "model": "bayes+x",
-      "oof": 3.633163824821036
+      "oof": 3.634552838470647
     },
     {
       "plan": "F11 条件融合(浅LGB)",
       "n_meta": 16,
       "model": "lgb+cond",
-      "oof": 3.6388720246993675
+      "oof": 3.6389632059294392
     },
     {
       "plan": "F12 条件融合(ridge)",
       "n_meta": 16,
       "model": "ridge+cond",
-      "oof": 3.633600303138163
+      "oof": 3.6347663156724206
     }
   ],
   "alpha_baseline": {
     "alpha": 0.5,
-    "oof": 3.6379181907683575
+    "oof": 3.6380155443972013
   },
-  "pure_stack_oof": 3.6395618813129595,
+  "pure_stack_oof": 3.639651694329672,
   "best": {
     "plan": "F23 全池TD bayes",
     "n_meta": 22,
     "model": "bayes@td+",
-    "oof": 3.6271122586713695
+    "oof": 3.6245377654645776
   }
 }

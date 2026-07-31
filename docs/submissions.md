@@ -20,6 +20,7 @@
 较首日 stack 3.61276(~210 名)累计提升 -0.0121;**已越过金牌线(18 名,3.60078)0.00014**。
 > 2026-07-31 v7 战役:21st 交易粒度时间差分布(a2p/p2r/p2now,30 列)单模 ΔOOF −0.0065(超警报线,三重审计通过:对抗验证 AUC 0.497 / 十折全改善 / 机制上无泄漏通道),融合 ΔOOF −0.00481 → ΔPrivate −0.00571,**转化率 119%** —— 折外无依赖的行为特征转化率高于 TE(45%),再次验证「新信息」路径。弱正则参数对照证伪(OOF +0.00486)。见 `docs/202607/31-v7_21st收尾与Top1复现.md`。
 > ⚠️ v7/v8 的 OOF 数字含 2019/777 折协议错配的乐观偏置(见 `31-v7-seed错配警告.md`),Private 为线上实测不受影响;777 规范复跑后以新 OOF 为基线。
+> 2026-07-31 v9 战役:E1(16th 稳健 clean)融合层证伪;E2(5th 分段建模)离线 −0.00167 但线上 +0.00013 **不转化**(结构层收益第三次证伪);777 协议对照提交 3.60103(比混折原版差 0.0004,协议差异属线上噪声带,修协议是为判据可信而非分数)。**当前最优维持 v7 F23 原版,项目就此收官定位第 16 名。**见 `docs/202607/31-v9_剩余候选验证.md`。
 > 2026-07-30 用真实私榜 top200 重新定位:此前"铜牌线附近"的估计严重低估,实际早已进入银牌区。
 > v5 战役(融合层重构 / 异构模型 / 新特征族)三个方向全部证伪,见 `docs/202607/30-v5_fusion_heterogeneous.md`。
 > v6 战役移植 21st 的**折外 outlier 率目标编码**,是首个真正转化到线上的改动(ΔOOF −0.00263 → ΔPrivate −0.00118,转化率 45%,对比 v5 的 2%),见 `docs/202607/30-v6_target_encoding.md`。
@@ -44,6 +45,8 @@
 | v5 F10 融合 | 3.60753 | 69 | 银(top 1.7%) |
 | v6 F20 全池(TE 目标编码) | 3.60635 | 59 | 银(top 1.4%) |
 | **v7 F23 全池(TD 时间差分布,当前最优)** | **3.60064** | **16** | **金(top 0.4%)** |
+| v9 F27(+5th 分段,777 协议) | 3.60077 | 18 | 金线上,未超 v7 |
+| v7 F23 777 协议对照 | 3.60103 | ~20 | 参照:协议差异属噪声带 |
 
 ~~金牌需 ≤3.60078~~ **已达成(2026-07-31)**。下一参照:第 10 名 3.59904(差 0.0016)、第 1 名 3.57875(差 0.0219)。v5 已证明模型层与融合层边际收益为零;v6(TE,转化率 45%)与 v7(时间差分布,转化率 119%)确认**新信息**是唯一有效路径,且折外无依赖特征的转化率显著高于折依赖的编码类特征。
 
@@ -63,3 +66,5 @@
 | 2026-07-30 06:45 | submission_v6_te.csv | v6 F20 full-pool: TE(21st out-of-fold outlier-rate target encoding, 36 cols) x 4 GBDT + v4-feature 7 models + MLP/ET, BayesianRidge 2nd layer, OOF 3.63192 | 3.68423 | 3.60635 |
 | 2026-07-30 08:45 | submission_v6_te_v2.csv | v6 F20 TE-v2: card-side OOF target encoding 69 cols (11 low-card keys + 3 high-card mode keys) x 4 GBDT + v4 7 models + MLP/ET, BayesianRidge, OOF 3.62760 | 3.68655 | 3.61226 |
 | 2026-07-31 02:27 | submission_v7_td.csv | v7 F23 full-pool TD+TE+orig: 30 timediff-dist cols (21st a2p/p2r/p2now, leak-audited) x 5 td base models + TE pool + v4 pool, BayesianRidge, OOF 3.62711 | 3.67880 | 3.60064 |
+| 2026-07-31 07:23 | submission_v9.csv | v9 F27 (777-protocol): F23 pool + seg (5th-style two-segment modeling by calibrated clf prob thr 0.015) + clean2, BayesianRidge, OOF 3.62287 | 3.67825 | 3.60077 |
+| 2026-07-31 07:25 | submission_v7_td_s777.csv | v7 F23 777-protocol rerun (same config as 3.60064 submission, fold-protocol fix only), OOF 3.62454 | 3.67898 | 3.60103 |
