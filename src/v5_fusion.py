@@ -41,7 +41,7 @@ def load_bases():
     """
     bases = {}
     for d, pre in [(BASE_DIR, ""), (BASE_DIR + "_ext", "x_"), (BASE_DIR + "_te", "t_"),
-                   (BASE_DIR + "_td", "d_")]:
+                   (BASE_DIR + "_td", "d_"), (BASE_DIR + "_fm", "f_")]:
         if not os.path.isdir(d):
             continue
         for f in sorted(os.listdir(d)):
@@ -250,6 +250,22 @@ def main():
             rows.append({"plan": tag, "n_meta": len(allf2), "model": mdl + "@td+", "oof": r})
             preds[tag] = pt
             print(f"[fusion] {tag:26s} n={len(allf2):2d} {mdl + '@td+':8s} OOF={r:.5f}", flush=True)
+
+    # ---- FM 版基模型(v11:TD + target 公式形状特征)----
+    FREG = [k for k in ("f_lgb", "f_xgb", "f_cat", "f_hub") if k in bases]
+    if FREG and "f_clean" in bases and "f_clf" in bases:
+        TREG3 = [k for k in ("t_lgb", "t_xgb", "t_cat", "t_hub") if k in bases]
+        DREG3 = [k for k in ("d_lgb", "d_xgb", "d_cat", "d_hub") if k in bases]
+        allf3 = (REG + TREG3 + DREG3 + FREG
+                 + (["t_clf", "t_clean"] if "t_clf" in bases else [])
+                 + (["d_clf", "d_clean"] if "d_clf" in bases else [])
+                 + ["f_clf", "f_clean", "p_cal", "ev", "p_cal_x_clean"])
+        for tag, mdl in [("F28 全池(FM+TD+TE+原版)", "ridge"), ("F29 全池FM bayes", "bayes")]:
+            r, _, pt = evaluate(allf3, mdl, bases, y, ybin, folds,
+                                p_src="f_clf", clean_src="f_clean")
+            rows.append({"plan": tag, "n_meta": len(allf3), "model": mdl + "@fm+", "oof": r})
+            preds[tag] = pt
+            print(f"[fusion] {tag:26s} n={len(allf3):2d} {mdl + '@fm+':8s} OOF={r:.5f}", flush=True)
 
     # ---- 跨特征集融合:扩展特征训练的模型即使单模更差,误差方向仍可能互补 ----
     XREG = [k for k in bases if k.startswith("x_") and not k.startswith("x_clf")]

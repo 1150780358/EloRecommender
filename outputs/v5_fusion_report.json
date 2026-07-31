@@ -121,6 +121,18 @@
       "oof": 3.6245377654645776
     },
     {
+      "plan": "F28 全池(FM+TD+TE+原版)",
+      "n_meta": 28,
+      "model": "ridge@fm+",
+      "oof": 3.6236447158223184
+    },
+    {
+      "plan": "F29 全池FM bayes",
+      "n_meta": 28,
+      "model": "bayes@fm+",
+      "oof": 3.6234046358154854
+    },
+    {
       "plan": "F15 跨特征集(2个x_)",
       "n_meta": 14,
       "model": "ridge+x",
@@ -151,9 +163,9 @@
   },
   "pure_stack_oof": 3.639651694329672,
   "best": {
-    "plan": "F23 全池TD bayes",
-    "n_meta": 22,
-    "model": "bayes@td+",
-    "oof": 3.6245377654645776
+    "plan": "F29 全池FM bayes",
+    "n_meta": 28,
+    "model": "bayes@fm+",
+    "oof": 3.6234046358154854
   }
 }
