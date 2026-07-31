@@ -25,3 +25,6 @@ __pycache__/
 .claude/skills/**/agents/*.yaml
 .agents/
 outputs/*.parquet
+
+# 个人学习资料(版权材料,仅本地使用,严禁入库/公开)
+花生十三*
