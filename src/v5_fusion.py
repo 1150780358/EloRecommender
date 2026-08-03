@@ -279,6 +279,21 @@ def main():
                 print(f"[fusion] {tag:26s} n={len(allf4):2d} {mdl + '@nn':8s} OOF={r:.5f}"
                       f"  NN成员={NREG}", flush=True)
 
+            # ---- v15:outlier 概率 NN 化(f_clf 与序列 NN 概率 rank 平均为新 p 源)----
+            nnc = "outputs/base_nn_clf/clf.npz"
+            if os.path.exists(nnc):
+                from scipy.stats import rankdata
+                zc = np.load(nnc)
+                qr = lambda a: rankdata(a) / len(a)
+                bases["pens"] = ((qr(bases["f_clf"][0]) + qr(zc["oof"])) / 2,
+                                 (qr(bases["f_clf"][1]) + qr(zc["pred"])) / 2)
+                for tag, mdl in [("F32 全池NN p_ens", "ridge"), ("F33 全池NN p_ens bayes", "bayes")]:
+                    r, _, pt = evaluate(allf4, mdl, bases, y, ybin, folds,
+                                        p_src="pens", clean_src="f_clean")
+                    rows.append({"plan": tag, "n_meta": len(allf4), "model": mdl + "@pens", "oof": r})
+                    preds[tag] = pt
+                    print(f"[fusion] {tag:26s} n={len(allf4):2d} {mdl + '@pens':8s} OOF={r:.5f}", flush=True)
+
     # ---- 跨特征集融合:扩展特征训练的模型即使单模更差,误差方向仍可能互补 ----
     XREG = [k for k in bases if k.startswith("x_") and not k.startswith("x_clf")]
     if XREG:
