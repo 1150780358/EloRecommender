@@ -1,1 +1,1 @@
-v5 fusion [F29 全池FM bayes] bayes@fm+, OOF 3.62340
+v5 fusion [F31 全池+GRU bayes] bayes@nn, OOF 3.62162

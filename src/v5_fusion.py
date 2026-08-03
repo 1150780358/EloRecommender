@@ -41,7 +41,7 @@ def load_bases():
     """
     bases = {}
     for d, pre in [(BASE_DIR, ""), (BASE_DIR + "_ext", "x_"), (BASE_DIR + "_te", "t_"),
-                   (BASE_DIR + "_td", "d_"), (BASE_DIR + "_fm", "f_")]:
+                   (BASE_DIR + "_td", "d_"), (BASE_DIR + "_fm", "f_"), (BASE_DIR + "_nn", "n_")]:
         if not os.path.isdir(d):
             continue
         for f in sorted(os.listdir(d)):
@@ -266,6 +266,16 @@ def main():
             rows.append({"plan": tag, "n_meta": len(allf3), "model": mdl + "@fm+", "oof": r})
             preds[tag] = pt
             print(f"[fusion] {tag:26s} n={len(allf3):2d} {mdl + '@fm+':8s} OOF={r:.5f}", flush=True)
+
+        # ---- v13:+ 序列 GRU(异构互补,融合增益判据在此)----
+        if "n_gru" in bases:
+            allf4 = allf3 + ["n_gru"]
+            for tag, mdl in [("F30 全池+GRU", "ridge"), ("F31 全池+GRU bayes", "bayes")]:
+                r, _, pt = evaluate(allf4, mdl, bases, y, ybin, folds,
+                                    p_src="f_clf", clean_src="f_clean")
+                rows.append({"plan": tag, "n_meta": len(allf4), "model": mdl + "@nn", "oof": r})
+                preds[tag] = pt
+                print(f"[fusion] {tag:26s} n={len(allf4):2d} {mdl + '@nn':8s} OOF={r:.5f}", flush=True)
 
     # ---- 跨特征集融合:扩展特征训练的模型即使单模更差,误差方向仍可能互补 ----
     XREG = [k for k in bases if k.startswith("x_") and not k.startswith("x_clf")]
