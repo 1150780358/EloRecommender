@@ -134,27 +134,39 @@
     },
     {
       "plan": "F30 全池+NN族",
-      "n_meta": 33,
+      "n_meta": 32,
       "model": "ridge@nn",
-      "oof": 3.621052034601006
+      "oof": 3.620891201566437
     },
     {
       "plan": "F31 全池+NN族 bayes",
-      "n_meta": 33,
+      "n_meta": 32,
       "model": "bayes@nn",
-      "oof": 3.6207772727518597
+      "oof": 3.620624787073752
     },
     {
       "plan": "F32 全池NN p_ens",
-      "n_meta": 33,
+      "n_meta": 32,
       "model": "ridge@pens",
-      "oof": 3.6212727442336075
+      "oof": 3.621146911186899
     },
     {
       "plan": "F33 全池NN p_ens bayes",
-      "n_meta": 33,
+      "n_meta": 32,
       "model": "bayes@pens",
-      "oof": 3.62096389824741
+      "oof": 3.6208468248951595
+    },
+    {
+      "plan": "F38 全池seedavg",
+      "n_meta": 32,
+      "model": "ridge@sa",
+      "oof": 3.6208935949688614
+    },
+    {
+      "plan": "F39 全池seedavg bayes",
+      "n_meta": 32,
+      "model": "bayes@sa",
+      "oof": 3.6206370133616
     },
     {
       "plan": "F15 跨特征集(2个x_)",
@@ -188,8 +200,8 @@
   "pure_stack_oof": 3.639651694329672,
   "best": {
     "plan": "F31 全池+NN族 bayes",
-    "n_meta": 33,
+    "n_meta": 32,
     "model": "bayes@nn",
-    "oof": 3.6207772727518597
+    "oof": 3.620624787073752
   }
 }

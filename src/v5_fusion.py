@@ -42,7 +42,7 @@ def load_bases():
     bases = {}
     for d, pre in [(BASE_DIR, ""), (BASE_DIR + "_ext", "x_"), (BASE_DIR + "_te", "t_"),
                    (BASE_DIR + "_td", "d_"), (BASE_DIR + "_fm", "f_"), (BASE_DIR + "_nn", "n_"),
-                   (BASE_DIR + "_dq", "q_")]:
+                   (BASE_DIR + "_dq", "q_"), (BASE_DIR + "_fma", "a_")]:
         if not os.path.isdir(d):
             continue
         for f in sorted(os.listdir(d)):
@@ -305,6 +305,17 @@ def main():
                     rows.append({"plan": tag, "n_meta": len(allf6), "model": mdl + "@dq", "oof": r})
                     preds[tag] = pt
                     print(f"[fusion] {tag:26s} n={len(allf6):2d} {mdl + '@dq':8s} OOF={r:.5f}", flush=True)
+
+            # ---- v20:fm 套三 seed 平均替换(f_* → a_*,同池身份降噪版)----
+            AREG = [k for k in ("a_lgb", "a_xgb", "a_cat", "a_hub") if k in bases]
+            if AREG and "a_clean" in bases and "a_clf" in bases:
+                allf7 = [k for k in allf4 if not k.startswith("f_")] + AREG + ["a_clf", "a_clean"]
+                for tag, mdl in [("F38 全池seedavg", "ridge"), ("F39 全池seedavg bayes", "bayes")]:
+                    r, _, pt = evaluate(allf7, mdl, bases, y, ybin, folds,
+                                        p_src="a_clf", clean_src="a_clean")
+                    rows.append({"plan": tag, "n_meta": len(allf7), "model": mdl + "@sa", "oof": r})
+                    preds[tag] = pt
+                    print(f"[fusion] {tag:26s} n={len(allf7):2d} {mdl + '@sa':8s} OOF={r:.5f}", flush=True)
 
     # ---- 跨特征集融合:扩展特征训练的模型即使单模更差,误差方向仍可能互补 ----
     XREG = [k for k in bases if k.startswith("x_") and not k.startswith("x_clf")]
