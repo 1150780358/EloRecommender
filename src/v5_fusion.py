@@ -41,7 +41,8 @@ def load_bases():
     """
     bases = {}
     for d, pre in [(BASE_DIR, ""), (BASE_DIR + "_ext", "x_"), (BASE_DIR + "_te", "t_"),
-                   (BASE_DIR + "_td", "d_"), (BASE_DIR + "_fm", "f_"), (BASE_DIR + "_nn", "n_")]:
+                   (BASE_DIR + "_td", "d_"), (BASE_DIR + "_fm", "f_"), (BASE_DIR + "_nn", "n_"),
+                   (BASE_DIR + "_dq", "q_")]:
         if not os.path.isdir(d):
             continue
         for f in sorted(os.listdir(d)):
@@ -293,6 +294,17 @@ def main():
                     rows.append({"plan": tag, "n_meta": len(allf4), "model": mdl + "@pens", "oof": r})
                     preds[tag] = pt
                     print(f"[fusion] {tag:26s} n={len(allf4):2d} {mdl + '@pens':8s} OOF={r:.5f}", flush=True)
+
+            # ---- v16:dq 版基模型(dec 时间结构 + merchants 增量)----
+            QREG = [k for k in ("q_lgb", "q_xgb", "q_cat", "q_hub") if k in bases]
+            if QREG and "q_clean" in bases and "q_clf" in bases:
+                allf6 = allf4 + QREG + ["q_clf", "q_clean"]
+                for tag, mdl in [("F36 全池+DQ", "ridge"), ("F37 全池+DQ bayes", "bayes")]:
+                    r, _, pt = evaluate(allf6, mdl, bases, y, ybin, folds,
+                                        p_src="q_clf", clean_src="q_clean")
+                    rows.append({"plan": tag, "n_meta": len(allf6), "model": mdl + "@dq", "oof": r})
+                    preds[tag] = pt
+                    print(f"[fusion] {tag:26s} n={len(allf6):2d} {mdl + '@dq':8s} OOF={r:.5f}", flush=True)
 
     # ---- 跨特征集融合:扩展特征训练的模型即使单模更差,误差方向仍可能互补 ----
     XREG = [k for k in bases if k.startswith("x_") and not k.startswith("x_clf")]
