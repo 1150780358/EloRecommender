@@ -267,15 +267,17 @@ def main():
             preds[tag] = pt
             print(f"[fusion] {tag:26s} n={len(allf3):2d} {mdl + '@fm+':8s} OOF={r:.5f}", flush=True)
 
-        # ---- v13:+ 序列 GRU(异构互补,融合增益判据在此)----
-        if "n_gru" in bases:
-            allf4 = allf3 + ["n_gru"]
-            for tag, mdl in [("F30 全池+GRU", "ridge"), ("F31 全池+GRU bayes", "bayes")]:
+        # ---- v13/v14:+ 序列 NN 族(异构互补,融合增益判据在此)----
+        NREG = sorted(k for k in bases if k.startswith("n_"))
+        if NREG:
+            allf4 = allf3 + NREG
+            for tag, mdl in [("F30 全池+NN族", "ridge"), ("F31 全池+NN族 bayes", "bayes")]:
                 r, _, pt = evaluate(allf4, mdl, bases, y, ybin, folds,
                                     p_src="f_clf", clean_src="f_clean")
                 rows.append({"plan": tag, "n_meta": len(allf4), "model": mdl + "@nn", "oof": r})
                 preds[tag] = pt
-                print(f"[fusion] {tag:26s} n={len(allf4):2d} {mdl + '@nn':8s} OOF={r:.5f}", flush=True)
+                print(f"[fusion] {tag:26s} n={len(allf4):2d} {mdl + '@nn':8s} OOF={r:.5f}"
+                      f"  NN成员={NREG}", flush=True)
 
     # ---- 跨特征集融合:扩展特征训练的模型即使单模更差,误差方向仍可能互补 ----
     XREG = [k for k in bases if k.startswith("x_") and not k.startswith("x_clf")]

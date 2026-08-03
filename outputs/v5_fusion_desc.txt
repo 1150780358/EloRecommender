@@ -1,1 +1,1 @@
-v5 fusion [F31 全池+GRU bayes] bayes@nn, OOF 3.62162
+v5 fusion [F31 全池+NN族 bayes] bayes@nn, OOF 3.62062
